@@ -53,7 +53,7 @@ public class EndPoint {
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Price is registered" )
     public Mono<String> create(@RequestBody PriceRequest price) {
         // Vérification des paramètres
-        if( ObjectUtils.anyNotNull(price)  && !ObjectUtils.allNotNull(price.getIdPrice(),price.getMontant(), price.getCode(), price.getDate() )){
+        if( ObjectUtils.anyNotNull(price)  && !ObjectUtils.allNotNull(price.getIdPrice(),price.getMontant(), price.isActive(), price.getCode(), price.getDate() )){
             log.error("Validation error: one of attributes is not found");
             return Mono.error(new ValidationParameterException("(Validation error message): one of attributes is not found" ));
         }
