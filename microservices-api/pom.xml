@@ -13,6 +13,7 @@
     <artifactId>microservices-api</artifactId>
     <modules>
          <module>spring-reactive-mongoapi</module>
+         <module>spring-reactive-apiprice</module>
     </modules>
 
     <dependencies>
