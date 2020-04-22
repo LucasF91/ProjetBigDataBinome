@@ -49,7 +49,7 @@ public class EndPoint {
         return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
     }
 
-    @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
+    @PostMapping(value = "/register/price" , headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Price is registered" )
     public Mono<String> create(@RequestBody PriceRequest price) {
         // Vérification des paramètres
@@ -70,7 +70,7 @@ public class EndPoint {
     @RequestMapping(value = "/prices{pricename}")
 
     
-    public Flux<Price> getCustomers(@RequestParam(required = true, name = "pricename") long pricename ) {
+    public Flux<Price> getPrices(@RequestParam(required = true, name = "pricename") long pricename ) {
         log.info("Searching  {} ",pricename );
         return priceService.searchIdPrice(pricename)
 
@@ -84,8 +84,8 @@ public class EndPoint {
 
     @GetMapping
     @RequestMapping(value = "/prices/")
-    public Flux<Price> getCustomers() {
-        log.info("All customers searching");
+    public Flux<Price> getPrices() {
+        log.info("All prices searching");
       return priceService.getPrices()
               // uses of map
                 .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
