@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.inti.formation.shop.api.rest.exception.InternalServerException;
+import fr.formation.inti.shop.api.rest.exception.InternalServerException;
 
 import fr.formation.inti.shop.api.repository.model.Price;
 import fr.formation.inti.shop.api.rest.bean.PriceRequest;
