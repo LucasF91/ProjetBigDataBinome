@@ -13,13 +13,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-/**
- * @author Sylvanius Kouandongui
- */
 @Data
-@Document(collection = "customer")
+@Document(collection = "price")
 @CompoundIndexes({
-        @CompoundIndex(name = "customer", def = "{ name: 1, dateNaissance: 1 }", unique = false)
+        @CompoundIndex(name = "price", def = "{ idPrice: 1 }", unique = false)
         // unique = false acceptation des doublons true non
         // unique = true rejet  des doublons
 })
