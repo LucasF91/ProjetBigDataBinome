@@ -20,9 +20,9 @@ public class PriceServiceImpl implements IPriceService {
 		return priceRepository.save(price);
 	}
 
-	@Override
-	public Flux<Price> searchIdPrice(long idPrice) {
-		return priceRepository.findByIdPrice(idPrice);
+	
+	public Flux<Price> searchCode(final String code) {
+		return priceRepository.findByCode(code);
 	}
 
 	@Override
@@ -31,9 +31,16 @@ public class PriceServiceImpl implements IPriceService {
 	}
 
 	@Override
-	public Mono<Price> update(Price p) {
-		return priceRepository.save(p);
+	public Mono<Price> update(Price price) {
+		return priceRepository.save(price);
 	}
+
+	@Override
+	public Mono<Void> deletePrice(Price price) {
+		return priceRepository.delete(price);
+	}
+
+
 
    
 

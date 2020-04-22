@@ -6,12 +6,13 @@ import reactor.core.publisher.Mono;
 
 public interface IPriceService {
 
-	Mono<Price> register(Price price);
+	public Mono<Price> register(Price price);
 
-    public Flux<Price> searchIdPrice(long idPrice) ;
+    public Flux<Price> searchCode(String code) ;
 
     public Flux<Price> getPrices() ;
 
-    public Mono<Price> update(Price p) ;
+    public Mono<Price> update(Price price) ;
 
+	public Mono<Void> deletePrice(Price price);
 }

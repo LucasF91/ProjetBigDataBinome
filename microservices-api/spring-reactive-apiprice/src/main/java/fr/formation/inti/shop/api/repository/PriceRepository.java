@@ -6,12 +6,13 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Date;
 
 
 @Repository
-public interface PriceRepository extends ReactiveMongoRepository<Price, Long> {
+public interface PriceRepository extends ReactiveMongoRepository<Price, String> {
     
     Flux<Price> findByIdPrice(final long idPrice);
 
@@ -23,4 +24,8 @@ public interface PriceRepository extends ReactiveMongoRepository<Price, Long> {
     Flux<Price> findByDateBetween( final Date date1,  final Date date2);
 
     Flux<Price> findByMontantBetween( final float montant1,  final Date montant2);
+
+    @Query("{ 'code' : ?0}")
+	Flux<Price> findByCode(String code);
+
 }

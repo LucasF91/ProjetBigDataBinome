@@ -2,7 +2,6 @@ package fr.formation.inti.shop.api.repository.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -22,10 +21,6 @@ import java.util.Date;
 })
 
 public class Price implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	/**
      * customer identifer
      */
