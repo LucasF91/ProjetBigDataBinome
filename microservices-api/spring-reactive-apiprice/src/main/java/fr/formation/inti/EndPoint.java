@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import fr.formation.inti.shop.api.rest.bean.PriceRequest;
 import fr.formation.inti.shop.api.rest.exception.InternalServerException;
 
 import fr.formation.inti.shop.api.repository.model.Price;
@@ -73,30 +72,13 @@ public class EndPoint {
                 });
     }
     @GetMapping
-    @RequestMapping(value = "/findIdPrice")
-    public Flux<Price> findByIdPrice(
-            @RequestParam(name = "idPrice")
-            long idPrice
-    ) {
-        log.debug("use idPrice", idPrice);
-        return priceService.findByIdPrice(idPrice)
-                .doOnNext(data -> log.info(data.getIdPrice() + " is found"));
-    }
-    
-    @PostMapping(value = "/savePrice" , headers = "Accept=application/json; charset=utf-8")
-    @ResponseStatus( value  = HttpStatus.CREATED, reason="Save the price in the database" )
-    public Mono<String> savePrice(@RequestBody Price price) {
-        // Vérification des paramètres
-        if( ObjectUtils.anyNotNull(price)  && !ObjectUtils.allNotNull(price.getIdPrice(),price.getMontant(), price.isActive(), price.getCode(), price.getDate() )){
-            log.error("Validation error: one of attributes is not found");
-            return Mono.error(new ValidationParameterException("(Validation error message): one of attributes is not found" ));
-        }
-        return Mono.just(price)
-        .map(data->
-                {
-
-                    return priceService.savePrice(data).subscribe().toString();
-                });
+    @RequestMapping(value = "/findCode/")
+    public Flux<Price> findByCode(
+            @RequestParam(value = "code") String code)
+    {
+        log.debug("usecode", code);
+        return priceService.findByCode(code)
+                .doOnNext(data -> log.info(data.getCode() + " is found"));
     }
     
     @GetMapping

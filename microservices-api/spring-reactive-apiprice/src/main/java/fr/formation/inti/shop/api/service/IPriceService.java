@@ -11,7 +11,7 @@ public interface IPriceService {
 	
 	Mono<Price> register(Price price);
 
-	public Flux<Price> findByIdPrice(final long idPrice) ;
+	public Flux<Price> findByCode(final String code) ;
 	 
 	public Mono<Price> savePrice(Price price);
 	

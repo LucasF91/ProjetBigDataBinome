@@ -14,7 +14,7 @@ import java.util.Date;
 public interface IPriceRepository extends ReactiveMongoRepository<Price, Long> {
 
     
-    public Flux<Price> findByIdPrice(final long idPrice);
+    public Flux<Price> findByCode(final String code);
 
     @Query("{'$and':[ {'active':'true'}, {'date': {$gte: ?0}} ] }")
     public Flux<Price> findActivePriceDate(final Date date);

@@ -47,8 +47,9 @@ public class PriceServiceImpl implements IPriceService {
 	}
 
 	@Override
-	public Flux<Price> findByIdPrice(long idPrice) {
-		return priceRepository.findByIdPrice(idPrice);
+	public Flux<Price> findByCode(String code) {
+		return priceRepository.findByCode(code);
 	}
+
 
 }
