@@ -14,10 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,7 +58,7 @@ public class EndPoint {
 
     @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Price is registered" )
-    public Mono<String> create(@RequestBody PriceRequest price) {
+    public Mono<String> register(@RequestBody Price price) {
         // Vérification des paramètres
         if( ObjectUtils.anyNotNull(price)  && !ObjectUtils.allNotNull(price.getIdPrice(), price.isActive(), price.getMontant(), price.getCode(), price.getDate() )){
             log.error("Validation error: one of attributes is not found");
@@ -94,7 +96,6 @@ public class EndPoint {
                 {
 
                     return priceService.savePrice(data).subscribe().toString();
-
                 });
     }
     
@@ -134,11 +135,11 @@ public class EndPoint {
         return Mono.just(price)
                 .map(data -> priceService.updatePrice(data).subscribe().toString());
     }
-    
+
     @DeleteMapping
-    @RequestMapping(value ="/deletePrice")
-    public Mono<Void> deletePrice(@RequestBody Price price){
-		return priceService.deletePrice(price);   	
+    @RequestMapping(value = "/deleteprice")
+    public Mono<Void> deleteprice(@RequestBody Price price ) {
+    	return priceService.deletePrice(price);
     }
 	
 }

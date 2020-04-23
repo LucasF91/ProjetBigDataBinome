@@ -12,6 +12,7 @@ import java.util.Date;
 
 @Repository
 public interface IPriceRepository extends ReactiveMongoRepository<Price, Long> {
+
     
     public Flux<Price> findByIdPrice(final long idPrice);
 
