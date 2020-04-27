@@ -4,5 +4,29 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://192.168.99.100,192.168.99.100
+      uri: mongodb://192.168.99.100:27017,192.168.99.100:27017
       database: shop
+  server:
+    port: 8080
+      
+camel:
+  springboot:
+    name: priceEvent
+
+# kafka
+kafka:
+  bootstrap-server: 192.168.99.100:29092
+  acks: all
+  retries: 26666  # retry=2147483647 nombre de tentative d'essai (d'insertion) si ça ne marche pas la première fois peut etre du à une coupure réseau
+  batch-size: 131072
+  buffer-memory: 80000000
+  client-id: producerEvent
+  idempotence: true
+  compression-type: snappy
+  topic-name: product-v1
+  user: producer-user
+  password: producer-pwd
+  max-in-flight-requests-per-connection: 5
+  auto-refisteer-schemas: false
+
+schedule-time: 900

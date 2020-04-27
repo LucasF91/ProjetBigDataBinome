@@ -1,8 +1,13 @@
 package fr.formation.inti.shop.api.service;
 
 import java.sql.Date;
+import java.util.Random;
 
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import fr.formation.inti.shop.api.repository.IPriceRepository;
@@ -39,17 +44,27 @@ public class PriceServiceImpl implements IPriceService {
 	@Override
 	public Mono<Price> updatePrice(Price price) {
 		return priceRepository.save(price);
+	}	
+	
+	@Override
+	public Mono<Price> deletePrice(String idPrice) {
+	return this.priceRepository.findByIdPrice(Long.parseLong(idPrice)).flatMap(data -> this.priceRepository.delete(data).thenReturn(data));
+
 	}
 
-	@Override
-	public Mono<Void> deletePrice(Price price) {
-		return priceRepository.delete(price);
-	}
+//	@Override
+//	public Mono<Void> deletePrice(Price price) {
+//		return priceRepository.delete(price);
+//	}
 
 	@Override
 	public Flux<Price> findByCode(String code) {
 		return priceRepository.findByCode(code);
 	}
 
-
+	@Override
+	public Mono<Price> findByIdPrice(long idPrice) {
+		return priceRepository.findByIdPrice(idPrice);
+	}
+	
 }

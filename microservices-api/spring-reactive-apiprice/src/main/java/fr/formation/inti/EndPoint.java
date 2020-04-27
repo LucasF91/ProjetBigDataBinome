@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import fr.formation.inti.shop.api.rest.exception.InternalServerException;
-
+import fr.formation.inti.shop.api.price.producer.ProductBuilder;
 import fr.formation.inti.shop.api.repository.model.Price;
 import fr.formation.inti.shop.api.rest.exception.ValidationParameterException;
 import fr.formation.inti.shop.api.service.IPriceService;
@@ -120,8 +120,10 @@ public class EndPoint {
 
     @DeleteMapping
     @RequestMapping(value = "/deleteprice")
-    public Mono<Void> deleteprice(@RequestBody Price price ) {
-    	return priceService.deletePrice(price);
+    @ResponseStatus(value =  HttpStatus.OK, reason = "Delete of Price")
+    public Mono<Price> deleteprice(@RequestParam(name ="idPrice") String IdPrice) {
+    	ProductBuilder.kafkaDeleteTopic(priceService.findByIdPrice(Long.parseLong(IdPrice)));
+    	return priceService.deletePrice(IdPrice);
     }
 	
 }

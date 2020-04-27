@@ -12,6 +12,18 @@
 
 	<artifactId>spring-reactive-apiprice</artifactId>
 
+	<properties>
+		<microservices-common-libs-version>0.0.1-SNAPSHOT</microservices-common-libs-version>
+        <microservices-utils-version>0.0.1-SNAPSHOT</microservices-utils-version>
+        <jsoup-version>1.11.3</jsoup-version>
+        <spring-boot-starterweb-version>2.2.5.RELEASE</spring-boot-starterweb-version>
+        <spring-kafka-version>2.3.6.RELEASE</spring-kafka-version>
+        <kafka-clients-version>2.3.1</kafka-clients-version>
+        <slf4j-api-version>1.7.30</slf4j-api-version>
+        <kafka-streams-version>2.3.1</kafka-streams-version>
+        <lombock-version>1.18.12</lombock-version>
+	</properties>
+	
    <dependencies>
 
         <dependency>
@@ -37,7 +49,38 @@
             <artifactId>jsoup</artifactId>
             <version>1.11.3</version>
         </dependency>
-
+        
+        <!-- SPRING -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.2.5.RELEASE</version>
+		</dependency>
+		
+		<!-- KAFKA -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.apache.kafka</groupId>
+    		<artifactId>kafka-streams</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>2.3.6.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.30</version>
+		</dependency>
 
 
     </dependencies>
