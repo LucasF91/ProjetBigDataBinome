@@ -56,8 +56,7 @@
         <module>microservices-utils</module>
         <module>microservices-common-libs</module>
         <module>microservices-api</module>
-        <module>../../spring-reactive-consume-price</module>
-        <module>microservices-api/spring-reactive-apiprice</module>
+        <module>microservices-consume-price</module>
     </modules>
 
     <dependencyManagement>
