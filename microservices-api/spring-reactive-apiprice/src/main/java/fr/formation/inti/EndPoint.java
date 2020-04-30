@@ -7,15 +7,16 @@ import static org.springframework.http.ResponseEntity.status;
 import java.sql.Date;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import fr.formation.inti.shop.api.rest.exception.InternalServerException;
-import fr.formation.inti.shop.api.price.producer.ProductBuilder;
 import fr.formation.inti.shop.api.repository.model.Price;
 import fr.formation.inti.shop.api.rest.exception.ValidationParameterException;
 import fr.formation.inti.shop.api.service.IPriceService;
@@ -43,6 +43,12 @@ public class EndPoint {
 
 	@Autowired
     IPriceService priceService;
+	
+	@Value("${kafka.topic-name}")
+    private static String TOPIC;
+
+    @Autowired
+    private static KafkaTemplate<String, Price> kafkaTemplate;
 
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
@@ -122,7 +128,12 @@ public class EndPoint {
     @RequestMapping(value = "/deleteprice")
     @ResponseStatus(value =  HttpStatus.OK, reason = "Delete of Price")
     public Mono<Price> deleteprice(@RequestParam(name ="idPrice") String IdPrice) {
-    	ProductBuilder.kafkaDeleteTopic(priceService.findByIdPrice(Long.parseLong(IdPrice)));
+    	priceService.findByIdPrice(Long.parseLong(IdPrice)).map
+    	(data -> {
+    	ProducerRecord<String, Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(data.getIdPrice()), data);
+    	kafkaTemplate.send(producerRecord);
+    	return Mono.just(data); }).subscribe();	
+    	
     	return priceService.deletePrice(IdPrice);
     }
 	
