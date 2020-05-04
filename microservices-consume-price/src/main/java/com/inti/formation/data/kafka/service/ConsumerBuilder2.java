@@ -18,6 +18,7 @@ PriceRepository repo;
 	public void consume(PriceDevice price) {
 		log.info("Price readed " + price.toString() );
 		PriceDevice  device = new PriceDevice();
+		device.setIdPrice(Long.valueOf(price.getIdPrice()));
 		device.setMontant(price.getMontant());
 		device.setActive(price.isActive());
 		device.setCode(price.getCode());
