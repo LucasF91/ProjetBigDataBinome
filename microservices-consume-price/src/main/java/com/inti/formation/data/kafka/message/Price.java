@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class Price {
 	
-	private String montant;
-	private String active;
+	private long idPrice;
+	private float montant;
+	private boolean active;
     private String code;
     private java.util.Date date;
 }

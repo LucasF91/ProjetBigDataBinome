@@ -11,7 +11,7 @@ spring:
     name: microservices-consume-price
   data:
     elasticsearch:
-      cluster-name: ApplicationConsumer
-      cluster-nodes: node-1
+      cluster-name: my-application 
+      cluster-nodes: 127.0.0.1:9300
     
   

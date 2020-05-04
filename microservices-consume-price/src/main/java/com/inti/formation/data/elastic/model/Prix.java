@@ -9,9 +9,9 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "device", type = "price")
+@Document(indexName = "prix", type = "_doc")
 @Data
-public class PriceDevice {
+public class Prix {
         @Id
         @Field(type = FieldType.Long)
         private long idPrice;
