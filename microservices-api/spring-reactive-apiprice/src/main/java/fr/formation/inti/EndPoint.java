@@ -4,7 +4,7 @@ package fr.formation.inti;
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -127,14 +127,14 @@ public class EndPoint {
     @DeleteMapping
     @RequestMapping(value = "/deleteprice")
     @ResponseStatus(value =  HttpStatus.OK, reason = "Delete of Price")
-    public Mono<Price> deleteprice(@RequestParam(name ="idPrice") String IdPrice) {
-    	priceService.findByIdPrice(Long.parseLong(IdPrice)).map
-    	(data -> {
+    public Mono<Price> deleteIdPrice(@RequestParam(name ="idPrice") String idPrice) {
+    	priceService.findByIdPrice(Long.parseLong(idPrice)).subscribe(data -> 
+    	{data.setDateSup(new Date());
     	ProducerRecord<String, Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(data.getIdPrice()), data);
     	kafkaTemplate.send(producerRecord);
-    	return Mono.just(data); }).subscribe();	
-    	
-    	return priceService.deletePrice(IdPrice);
+    	});
+    	return priceService.deleteIdPrice(idPrice);
     }
 	
 }
+

@@ -31,6 +31,7 @@ public class ConsumerBuilder {
 		prix.setActive(price.isActive());
 		prix.setCode(price.getCode());
 		prix.setDate(price.getDate());
+		prix.setDateSup(price.getDateSup());
 		repo.save(prix);
 	}
 }

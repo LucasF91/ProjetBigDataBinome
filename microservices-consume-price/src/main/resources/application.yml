@@ -4,7 +4,7 @@ kafka:
   consumer-group-id: microservices-consume-price-groupeId # très important pour le consumer
   client-id: microservices-consume-price # important c'est le nom du microservice
 server:
-  port: 8080
+  port: 8082
   
 spring:
   application:

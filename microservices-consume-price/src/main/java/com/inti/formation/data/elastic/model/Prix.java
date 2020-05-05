@@ -27,4 +27,8 @@ public class Prix {
         
         @Field(type = FieldType.Date)
         private Date date;
+        
+        @Field(type = FieldType.Date)
+        private Date dateSup;
+        
 }

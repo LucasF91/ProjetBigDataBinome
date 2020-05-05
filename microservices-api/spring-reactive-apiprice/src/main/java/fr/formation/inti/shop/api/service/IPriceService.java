@@ -1,6 +1,6 @@
 package fr.formation.inti.shop.api.service;
 
-import java.sql.Date;
+import java.util.Date;
 
 import fr.formation.inti.shop.api.repository.model.Price;
 import reactor.core.publisher.Flux;
@@ -23,6 +23,8 @@ public interface IPriceService {
 
     public Mono<Price> updatePrice(Price price) ;
     
-    public Mono<Price> deletePrice(String idPrice) ;
+    public Mono<Void> deletePrice(Price price) ;
+    
+    public Mono<Price> deleteIdPrice(String idPrice);
 
 }

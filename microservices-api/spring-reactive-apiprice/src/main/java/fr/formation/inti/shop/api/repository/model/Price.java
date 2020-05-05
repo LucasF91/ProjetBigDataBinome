@@ -29,5 +29,6 @@ public class Price implements Serializable {
     private boolean active;
     private String code;
     private Date date;
+    private Date dateSup;
 
 }
